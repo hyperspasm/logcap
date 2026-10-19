@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Launcher: runs logcap.py with the project's venv. Works through a symlink,
+# so you can `ln -s "$PWD/logcap" ~/bin/logcap` and run it from anywhere.
+set -euo pipefail
+
+src="${BASH_SOURCE[0]}"
+while [ -L "$src" ]; do
+    dir="$(cd -P "$(dirname "$src")" && pwd)"
+    src="$(readlink "$src")"
+    [[ "$src" != /* ]] && src="$dir/$src"
+done
+here="$(cd -P "$(dirname "$src")" && pwd)"
+
+if [ ! -x "$here/venv/bin/python" ]; then
+    echo "logcap: no venv found; run $here/make_venv.sh first" >&2
+    exit 1
+fi
+exec "$here/venv/bin/python" "$here/logcap.py" "$@"
