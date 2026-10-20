@@ -44,3 +44,7 @@ In watch mode a line is shown once it is complete, so a line that stops short of
 ```
 
 `./logcap` is a small wrapper that runs `logcap.py` with the venv, and it works through a symlink, so `ln -s "$PWD/logcap" ~/bin/logcap` lets you run it from anywhere.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
